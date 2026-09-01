@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SBI Loan EMI Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 30px;
+        }
+
+        div {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        input[type=number] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            background-color: #f8f8f8;
+            font-size: 16px;
+        }
+
+        input[type=submit] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        #emi-result {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #0a5d00;
+            font-size: 18px;
+        }
+    </style>
+
+    <script>
+        function calculateEMI() {
+            var loanAmount = parseFloat(document.getElementById("loan-amount").value);
+            var interestRate = parseFloat(document.getElementById("interest-rate").value);
+            var loanTenure = parseFloat(document.getElementById("loan-tenure").value);
+
+            if (loanAmount <= 0 || interestRate <= 0 || loanTenure <= 0) {
+                document.getElementById("emi-result").innerHTML = "Please enter valid positive values.";
+                return;
+            }
+
+            var monthlyInterestRate = interestRate / (12 * 100);
+            var numberOfPayments = loanTenure * 12;
+
+            var emi = (loanAmount * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) /
+                (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
+
+            var emiText = "Your monthly EMI is Rs. " + emi.toFixed(2);
+            document.getElementById("emi-result").innerHTML = emiText;
+        }
+    </script>
+</head>
+<body>
+    <h2>SBI Loan EMI Calculator</h2>
+    <div>
+        <label for="loan-amount">Loan Amount</label>
+        <input type="number" id="loan-amount" name="loan-amount" placeholder="Enter loan amount in Rs.">
+
+        <label for="interest-rate">Interest Rate</label>
+        <input type="number" id="interest-rate" name="interest-rate" placeholder="Enter interest rate in %">
+
+        <label for="loan-tenure">Loan Tenure</label>
+        <input type="number" id="loan-tenure" name="loan-tenure" placeholder="Enter loan tenure in years">
+
+        <input type="submit" value="Calculate EMI" onclick="calculateEMI()">
+
+        <p id="emi-result"></p>
+    </div>
+</body>
+</html>

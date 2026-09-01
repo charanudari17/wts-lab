@@ -1,0 +1,13 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    color: darkblue;
+    text-align: center;
+}
+
+h2, h3 {
+    text-align: center;
+    color: #333;
+}

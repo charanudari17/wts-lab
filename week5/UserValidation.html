@@ -1,0 +1,159 @@
+<html>
+<head>
+    <title>User Validation</title>
+    <style>
+        legend {
+            display: block;
+            padding-left: 2px;
+            padding-right: 2px;
+            border: none;
+        }
+
+        body {
+            background-color: cyan;
+            font-family: Arial, sans-serif;
+        }
+
+        center {
+            display: block;
+            text-align: center;
+        }
+
+        fieldset {
+            width: 320px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 2px solid #000;
+            border-radius: 8px;
+            background-color: rgba(255,255,255,0.2);
+        }
+
+        input, select {
+            width: 240px;
+            padding: 8px;
+            margin: 8px 0;
+            border: 1px solid #666;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            width: 120px;
+            cursor: pointer;
+            background-color: #1f7a1f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        function validate() {
+            var fn = document.getElementById("fn");
+            var fname = fn.value;
+            var ln = document.getElementById("ln");
+            var lname = ln.value;
+            var un = document.getElementById("un");
+            var uname = un.value;
+            var pwd = document.getElementById("pwd");
+            var pass = pwd.value;
+            var cpwd = document.getElementById("cpwd");
+            var cpass = cpwd.value;
+            var em = document.getElementById("e");
+            var email = em.value;
+            var m = document.getElementById("ph");
+            var mobile = m.value;
+
+            var fre = /^[A-Za-z]+$/;
+            var lre = /^[A-Za-z]+$/;
+            var unre = /^[a-zA-Z]+[0-9a-zA-Z._]*$/;
+            var ere = /^[a-zA-Z]+([\._]?\w+)*@\w+([\._]?\w+)*(\.\w{2,3})+$/;
+            var mre = /^[6-9][0-9]{9}$/;
+            var pwdre = /^(?=.{8,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$/;
+
+            if (!fre.test(fname)) {
+                return err(fn);
+            }
+
+            if (!lre.test(lname)) {
+                return err(ln);
+            }
+
+            if (!unre.test(uname)) {
+                return err(un);
+            }
+
+            if (!ere.test(email)) {
+                return err(em);
+            }
+
+            if (!pwdre.test(pass)) {
+                return err(pwd);
+            }
+
+            if (cpass !== pass) {
+                return err(cpwd);
+            }
+
+            if (!mre.test(mobile)) {
+                return err(m);
+            }
+
+            alert("done");
+            return true;
+        }
+
+        function err(ele) {
+            ele.style.border = "red solid 3px";
+            ele.value = "";
+            ele.placeholder = "Invalid";
+            return false;
+        }
+    </script>
+</head>
+<body>
+    <center>
+        <h1>Email Registration</h1>
+        <form onsubmit="return validate();">
+            <fieldset>
+                <legend>Registration Form</legend>
+                <table>
+                    <tr>
+                        <td><input type="text" id="fn" placeholder="Firstname" maxlength="10"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" id="ln" placeholder="Lastname" maxlength="10"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" id="un" placeholder="UserName" maxlength="10"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="email" id="e" placeholder="Email"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="password" id="pwd" placeholder="Password"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="password" id="cpwd" placeholder="Confirm"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" id="ph" placeholder="Mobile"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Gender:</label>
+                            <select id="gender">
+                                <option value="male">male</option>
+                                <option value="female">female</option>
+                                <option value="others">others</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="create"></td>
+                    </tr>
+                </table>
+            </fieldset>
+        </form>
+    </center>
+</body>
+</html>
